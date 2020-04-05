@@ -10,3 +10,4 @@
     * server.port=xxx  改端口号
 * Controller:控制器，要前端可以访问
     * GetMaping("/xx""):设置访问路径
+* 在templates里多个url第一个用？区分，然后都用&区分
