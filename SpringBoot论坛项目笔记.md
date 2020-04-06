@@ -14,3 +14,4 @@
     * GetMaping("/xx""):设置访问路径
 * Autowired 自动把spring容器已经写好实例化的实例加载到我当前使用的上下文
 * Value(${xxx}) 用来读取properties内容并赋值
+* HttpServletRequest用来获取session

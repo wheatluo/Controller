@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AuthorizeController {
 
@@ -26,7 +28,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
-                           @RequestParam(name = "state")String state){
+                           @RequestParam(name = "state")String state,
+                           HttpServletRequest request){//HttpServletRequest用来获取session
         AccesstokenDTO accesstokenDTO = new AccesstokenDTO();
         accesstokenDTO.setClient_id(clien_id);
         accesstokenDTO.setCode("code");
@@ -35,7 +38,13 @@ public class AuthorizeController {
         accesstokenDTO.setClient_secret(clien_secret);
         String accessToken = githubProvide.getAccessToken(accesstokenDTO);
         GithubUser githubUser = githubProvide.githubUser(accessToken);
-        System.out.println(githubUser.getName());
-        return "index";
+        if(githubUser != null){
+            //登录成功，写cookie和session 记录cookie拿到session保存登录状态
+            request.getSession().setAttribute("githubUser",githubUser);//setAttribute用来保存数据，获取githubUser的值，同时放到session里面，这时session已经创建成功
+            return "redirect:/";//使用reirect前缀表示登录后跳转到根页面
+        }else{
+            return "redirect:/";
+            //登录失败
+        }//这时候需要怎么在网页去展示登录成功或者失败，要在index.html里设置
     }
 }

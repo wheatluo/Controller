@@ -27,15 +27,17 @@
                     <button type="submit" class="btn btn-default">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://github.com/login/oauth/authorize?client_id=2a4368b3f7e48a6e826a&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">我 <span class="caret"></span></a>
+                    <li class="dropdown" th:if="${session.githubUser != null}"><!--th:if="${session.xxx Boolean}"布尔表达式正确就显示下面的内容-->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.githubUser.getName()}"> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">个人资料</a></li>
                             <li><a href="#">消息通知</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">退出登录</a></li>
                         </ul>
+                    </li>
+                    <li th:if="${session.githubUser == null}"><!--如果session等于null就显示下面的内容-->
+                        <a href="https://github.com/login/oauth/authorize?client_id=2a4368b3f7e48a6e826a&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a>
                     </li>
                 </ul>
             </div>
