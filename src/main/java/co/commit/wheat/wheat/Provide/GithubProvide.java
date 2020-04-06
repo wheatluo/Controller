@@ -23,7 +23,6 @@ public class GithubProvide {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-            System.out.println(string);
             return string;
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,10 +37,9 @@ public class GithubProvide {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);//parseObject自动把String转换成java类对象
+            GithubUser githubUser = JSON.parseObject(string, GithubUser.class); //parseObject自动把String转换成java类对象
             return githubUser;
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }
