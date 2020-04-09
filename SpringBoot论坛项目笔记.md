@@ -16,3 +16,5 @@
 * Value(${xxx}) 用来读取properties内容并赋值
 * HttpServletRequest用来获取session
 #### 使用h2数据库简单快捷
+
+#### 网络与网络之间传输用dto，在数据库中用model
